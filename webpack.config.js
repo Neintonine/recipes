@@ -1,16 +1,33 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin"),
-    Path = require('path'),
+const MiniCssExtractPlugin = require("mini-css-extract-plugin"), Path = require('path'), fs = require('node:fs'),
     AssetsPlugin = require('assets-webpack-plugin'),
-    CopyPlugin = require("copy-webpack-plugin");
+    CopyPlugin = require("copy-webpack-plugin"), {CleanWebpackPlugin} = require("clean-webpack-plugin"),
 
-const PUBLIC_FOLDER = Path.resolve(__dirname + '/public');
-const SOURCE_FOLDER = Path.resolve(__dirname + '/source');
-const JS_FOLDER = Path.resolve(SOURCE_FOLDER + '/js');
-const PHP_FOLDER = Path.resolve(SOURCE_FOLDER + '/php');
-const CSS_FOLDER = Path.resolve(SOURCE_FOLDER + '/scss');
+    PUBLIC_FOLDER = Path.resolve(__dirname + '/public'), SOURCE_FOLDER = Path.resolve(__dirname + '/source'),
+    JS_FOLDER = Path.resolve(SOURCE_FOLDER + '/js'), PAGES_FOLDER = Path.resolve(JS_FOLDER + '/pages'),
+    PHP_FOLDER = Path.resolve(SOURCE_FOLDER + '/php'), CSS_FOLDER = Path.resolve(SOURCE_FOLDER + '/scss');
+
+function *walkSync(dir) {
+    const files = fs.readdirSync(dir, { withFileTypes: true });
+    for (const file of files) {
+        if (file.isDirectory()) {
+            yield* walkSync(Path.join(dir, file.name));
+        } else {
+            yield Path.join(dir, file.name);
+        }
+    }
+}
+
+const entries = {};
+for (const filePath of walkSync(PAGES_FOLDER)) {
+    const relativePath = filePath.replace(PAGES_FOLDER + Path.sep, '').replace(/\.[^/.]+$/, "");
+    entries[relativePath] = {
+        import: filePath
+    };
+}
 
 module.exports = {
     plugins: [
+        new CleanWebpackPlugin(),
         new AssetsPlugin({
             filename: 'file-index.json',
             path: PUBLIC_FOLDER,
@@ -41,6 +58,11 @@ module.exports = {
                     name: 'vendors',
                     chunks: 'all',
                 },
+                common: {
+                    test: /[\\/]common[\\/]/,
+                    name: 'common',
+                    chunks: "all"
+                }
             },
         },
     },
@@ -71,9 +93,7 @@ module.exports = {
     resolve: {
         extensions: [".js"],
     },
-    entry: {
-
-    },
+    entry: entries,
     output: {
         path: PUBLIC_FOLDER,
         filename: 'js/[name].js'

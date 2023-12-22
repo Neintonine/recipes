@@ -1,7 +1,15 @@
 {
+    "autoload": {
+        "psr-4": {
+            "RecipeManager\\": "./backend/"
+        }
+    },
+
     "require": {
         "php": "8.3",
         "aura/router": "^3.3",
-        "league/plates": "^3.5"
+        "league/plates": "^3.5",
+        "league/container": "^4.2",
+        "filp/whoops": "^2.15"
     }
 }
