@@ -6,7 +6,7 @@
     },
 
     "require": {
-        "php": "8.3",
+        "php": "8.3.*",
         "aura/router": "^3.3",
         "league/plates": "^3.5",
         "league/container": "^4.2",
