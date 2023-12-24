@@ -6,6 +6,7 @@ namespace RecipeManager\Routing;
 use Aura\Router\Map;
 use Aura\Router\RouterContainer;
 use Laminas\Diactoros\ServerRequestFactory;
+use RecipeManager\ContainerHandler;
 
 final class Router
 {
@@ -26,6 +27,9 @@ final class Router
             $_FILES
         );
 
+        $ruleIterator = $this->routerContainer->getRuleIterator();
+        $ruleIterator->append(ContainerHandler::Get(ResourceRule::class));
+
         $matcher = $this->routerContainer->getMatcher();
 
         $route = $matcher->match($request);
@@ -34,7 +38,7 @@ final class Router
             $failedRoute = $matcher->getFailedRoute();
 
             if (!$failedRoute) {
-                // 404 NOT FOUND
+                http_response_code(404);
                 return;
             }
 
@@ -43,12 +47,15 @@ final class Router
                 case 'Aura\Router\Rule\Allows':
                     // 405 METHOD NOT ALLOWED
                     // Send the $failedRoute->allows as 'Allow:'
+                    http_response_code(405);
                     break;
                 case 'Aura\Router\Rule\Accepts':
                     // 406 NOT ACCEPTABLE
+                    http_response_code(406);
                     break;
                 default:
                     // 404 NOT FOUND
+                    http_response_code(404);
                     break;
             }
             return;
@@ -73,7 +80,8 @@ final class Router
     private function getMap(): Map {
         $map = $this->routerContainer->getMap();
 
-
+        $routes = ContainerHandler::Get(Routes::class);
+        $routes->fillMap($map);
 
         return $map;
     }
