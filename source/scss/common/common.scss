@@ -4,11 +4,24 @@
 @import "@fortawesome/fontawesome-free/scss/fontawesome";
 @import "@fortawesome/fontawesome-free/scss/solid";
 
-.content {
-  width: 75%;
-
-  margin: 0 auto;
-  padding-top: 5rem;
-  min-height: 75%;
+:root {
+  --content-padding-y: 5rem;
 }
 
+.content {
+  --content-height: 1000px;
+
+  width: 1700px;
+  max-width: 100vw;
+
+  height: var(--content-height);
+  max-height: 100vh;
+
+  margin: calc((100vh - var(--content-height)) / 2) auto;
+}
+
+@media (max-height: 1000px) {
+  .content {
+    margin: 0 auto;
+  }
+}

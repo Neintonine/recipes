@@ -2,7 +2,7 @@
 /**
  * @var Template $this
  * @var array<array{js: array<string>, css: array<string>}> $resourceMap
- * @var ?string $pageId
+ * @var ?string $resourceId
  */
 
 use League\Plates\Template\Template;
@@ -20,25 +20,25 @@ assert(is_array($resourceMap));
         <title>Recipes</title>
 
         <?php
-        if (array_key_exists($pageId, $resourceMap)):
-            $resources = $resourceMap[$pageId];
+        if (array_key_exists($resourceId, $resourceMap)):
+            $resources = $resourceMap[$resourceId];
 
             foreach ($resources["js"] as $resource):
             ?>
-                <script src="<?= $resource ?>"></script>
+                <script src="/<?= $resource ?>"></script>
             <?php endforeach;
             foreach ($resources["css"] as $resource): ?>
-                <link rel="stylesheet" href="<?= $resource ?>">
+                <link rel="stylesheet" href="/<?= $resource ?>">
             <?php endforeach;
         endif;?>
     </head>
-    <body class="vh-100 vw-100">
+    <body>
         <div class="content">
             <div class="row h-100">
-                <div class="sidebar col-4 h-100 border-end pe-1">
+                <div class="sidebar h-100 col-3 border-end pe-1">
                     <?= $this->section("sidebar") ?>
                 </div>
-                <div class="col-8 ps-1">
+                <div class="col-9 ps-1 position-relative">
                     <?= $this->section("content") ?>
                 </div>
             </div>

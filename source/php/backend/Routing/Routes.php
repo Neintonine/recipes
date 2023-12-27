@@ -3,10 +3,7 @@
 namespace RecipeManager\Routing;
 
 use Aura\Router\Map;
-use Laminas\Diactoros\CallbackStream;
-use Laminas\Diactoros\Request;
-use Laminas\Diactoros\Response;
-use Laminas\Diactoros\ServerRequest;
+use Laminas\Diactoros\{CallbackStream, Request, Response, ServerRequest};
 use Mimey\MimeTypes;
 use RecipeManager\ContainerHandler;
 use RecipeManager\Path;
@@ -16,6 +13,8 @@ final class Routes
 {
     public function fillMap(Map $map) {
         $map->get("index", "/", $this->handleIndexRoute(...));
+
+        $map->attach('recipe.', '/recipe', ContainerHandler::Get(RecipeRoutes::class)->attach(...));
 
         $map->get("resources", "/", $this->handleResource(...))
             ->wildcard("_blank")

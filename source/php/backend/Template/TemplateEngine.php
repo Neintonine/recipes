@@ -3,7 +3,9 @@
 namespace RecipeManager\Template;
 
 use League\Plates\Engine;
+use RecipeManager\ContainerHandler;
 use RecipeManager\Path;
+use RecipeManager\Routing\Router;
 
 class TemplateEngine
 {
@@ -21,6 +23,9 @@ class TemplateEngine
     }
 
     public function render(string $file, array $data = []): string {
+        $routeMap = ContainerHandler::Get(Router::class)->map;
+        $data['routes'] = $routeMap;
+
         return $this->engine->render($file, $data);
     }
 

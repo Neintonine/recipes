@@ -10,7 +10,7 @@ use RecipeManager\ContainerHandler;
 
 final class Router
 {
-    private readonly Map $map;
+    public readonly Map $map;
 
     public function __construct(
         private readonly RouterContainer $routerContainer
