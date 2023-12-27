@@ -11,7 +11,7 @@ assert(is_array($resourceMap));
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport"
@@ -32,7 +32,16 @@ assert(is_array($resourceMap));
             <?php endforeach;
         endif;?>
     </head>
-    <body class="bg-light-subtle">
-
+    <body class="vh-100 vw-100">
+        <div class="content">
+            <div class="row h-100">
+                <div class="sidebar col-4 h-100 border-end pe-1">
+                    <?= $this->section("sidebar") ?>
+                </div>
+                <div class="col-8 ps-1">
+                    <?= $this->section("content") ?>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
