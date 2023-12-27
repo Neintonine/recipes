@@ -1,0 +1,6 @@
+{
+  "address": "localhost",
+  "database": "recipes",
+  "user": "vagrant",
+  "password": "vagrant"
+}
