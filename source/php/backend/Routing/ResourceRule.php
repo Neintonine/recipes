@@ -19,7 +19,7 @@ final class ResourceRule implements RuleInterface
      */
     public function __invoke(ServerRequestInterface $request, Route $route): bool
     {
-        if ($route->name !== "resources") {
+        if (!str_ends_with($route->name, "resources")) {
             return true;
         }
 

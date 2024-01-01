@@ -24,11 +24,13 @@ final class RecipeRepository extends Repository
        recipe.calorine,
        recipe.prepration_time,
        recipe.source_argument,
+       group_concat(rt.tag_id SEPARATOR ';') as tag_ids,
        s.id as source_id,
        s.name as source_name,
        s.type as source_type
 FROM recipe
     LEFT JOIN recipes.source s on recipe.fk_source = s.id
+    LEFT JOIN recipes.recipe_tags rt ON recipe.id = rt.recipe_id
 WHERE recipe.id = ?
 LIMIT 1";
 
@@ -42,13 +44,15 @@ LIMIT 1";
             return null;
         }
 
+        $explodedTagIds = explode(';', $valueArray['tag_ids']);
+        $valueArray['tag_ids'] = $explodedTagIds;
         return $this->createModel($valueArray);
     }
 
     /**
      * @return Recipe[]
      */
-    #[\Override] public function getAll(): array
+    public function getAll(): array
     {
         $sql = "SELECT recipe.id,
        recipe.name,
@@ -76,7 +80,17 @@ FROM recipe
     }
 
     /**
-     * @param array{id: int, name: string, portions: int, calorine: int, prepration_time: string, source_argument: ?string, source_id: ?string, source_name: ?string, source_type: ?string} $values
+     * @param array{
+     *     id: int,
+     *     name: string,
+     *     portions: int,
+     *     calorine: int,
+     *     prepration_time: string,
+     *     source_argument: ?string,
+     *     source_id: ?string,
+     *     source_name: ?string,
+     *     source_type: ?string
+     * } $values
      */
     #[\Override] public function createModel(array $values): Recipe
     {

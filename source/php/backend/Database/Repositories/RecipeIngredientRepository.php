@@ -47,7 +47,7 @@ LIMIT 1";
      * @return RecipeIngredient[]
      * @throws Exception
      */
-    public function getFromRecipe(Recipe $recipe): array {
+    public function fromRecipe(Recipe $recipe): array {
         $sql = "SELECT 
     recipe_ingrediant.id, amount, i.id as ingredient_id, name as ingredient_name, type as ingredient_type, type_argument as ingredient_type_argument
 FROM recipe_ingrediant

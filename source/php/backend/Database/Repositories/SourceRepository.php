@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace RecipeManager\Database\Repositories;
 
+use Exception;
 use RecipeManager\Database\Models\Source;
 use RecipeManager\Database\Models\SourceType;
 
@@ -20,7 +21,7 @@ LIMIT 1";
 
         $result = $this->database->query($sql, $id);
         if (!$result) {
-            throw new \Exception("Couldn't query for source with id '$id'");
+            throw new Exception("Couldn't query for source with id '$id'");
         }
 
         $valueArray = $result->fetch();
@@ -31,9 +32,23 @@ LIMIT 1";
         return $this->createModel($valueArray);
     }
 
-    #[\Override] public function getAll()
+    public function getAll()
     {
-        // TODO: Implement getAll() method.
+        $sql = "SELECT 
+    id, name, type
+FROM source";
+
+        $result = $this->database->query($sql);
+        if (!$result) {
+            throw new Exception("Couldn't query for recipes");
+        }
+
+        $resultingData = [];
+        while ($row = $result->fetch()) {
+            $resultingData[] = $this->createModel($row);
+        }
+
+        return $resultingData;
     }
 
     /**

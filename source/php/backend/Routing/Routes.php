@@ -6,6 +6,10 @@ use Aura\Router\Map;
 use Laminas\Diactoros\{CallbackStream, Request, Response, ServerRequest};
 use Mimey\MimeTypes;
 use RecipeManager\ContainerHandler;
+use RecipeManager\Database\Repositories\IngredientRepository;
+use RecipeManager\Database\Repositories\RecipeIngredientRepository;
+use RecipeManager\Database\Repositories\RecipeRepository;
+use RecipeManager\Database\Repositories\RecipeStepRepository;
 use RecipeManager\Path;
 use RecipeManager\Template\TemplateEngine;
 
@@ -24,6 +28,7 @@ final class Routes
     }
 
     private function handleIndexRoute(ServerRequest $request): Response {
+
         $templateEngine = ContainerHandler::Get(TemplateEngine::class);
         $renderedTemplate = $templateEngine->render("pages::start");
 

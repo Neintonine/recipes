@@ -31,6 +31,8 @@ assert(is_array($resourceMap));
                 <link rel="stylesheet" href="/<?= $resource ?>">
             <?php endforeach;
         endif;?>
+
+        <?= $this->section("head") ?>
     </head>
     <body>
         <div class="content">

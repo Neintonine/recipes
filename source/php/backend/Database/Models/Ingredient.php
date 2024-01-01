@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace RecipeManager\Database\Models;
 
-enum IngredientType: int
+enum IngredientType: string
 {
-    case NONE = 0;
-    case GRAMS = 1;
-    case PIECE = 2;
-    case EL = 3;
-    case TL = 4;
-    case LITRE = 5;
+    case NONE = "NONE";
+    case GRAMS = "GRAMS";
+    case PIECE = "PIECE";
+    case EL = "EL";
+    case TL = "TL";
+    case LITRE = "LITRE";
 }
 
 final readonly class Ingredient

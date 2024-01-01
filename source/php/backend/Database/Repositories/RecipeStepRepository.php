@@ -51,7 +51,7 @@ LIMIT 1";
      * @return RecipeStep[]
      * @throws Exception
      */
-    public function getByRecipe(Recipe $recipe): array {
+    public function fromRecipe(Recipe $recipe): array {
         $sql = "SELECT 
     recipe_step.id, recipe_step.`order`, recipe_step.step_text
 FROM recipe_step

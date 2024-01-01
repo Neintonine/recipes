@@ -3,7 +3,10 @@
 /**
  * @var \League\Plates\Template\Template $this
  * @var \Aura\Router\Map $routes
+ * @var Recipe[] $recipes
  */
+
+use RecipeManager\Database\Models\Recipe;
 
 $this->layout("layout::main", [ "resourceId" => "default" ]);
 $links = [
