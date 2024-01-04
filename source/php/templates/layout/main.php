@@ -37,10 +37,10 @@ assert(is_array($resourceMap));
     <body>
         <div class="content">
             <div class="row h-100">
-                <div class="sidebar h-100 col-3 border-end pe-1">
+                <div class="sidebar h-100 col-3 border-end pe-2">
                     <?= $this->section("sidebar") ?>
                 </div>
-                <div class="col-9 ps-1 position-relative">
+                <div class="col-9 ps-2 position-relative">
                     <?= $this->section("content") ?>
                 </div>
             </div>

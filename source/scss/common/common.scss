@@ -9,9 +9,9 @@
 }
 
 .content {
-  --content-height: 1000px;
+  --content-height: 900px;
 
-  width: 1700px;
+  width: 1500px;
   max-width: 100vw;
 
   height: var(--content-height);
@@ -20,7 +20,7 @@
   margin: calc((100vh - var(--content-height)) / 2) auto;
 }
 
-@media (max-height: 1000px) {
+@media (max-height: 900px) {
   .content {
     margin: 0 auto;
   }

@@ -48,7 +48,7 @@ module.exports = {
         })
     ],
     mode: "development",
-    devtool: 'source-map',
+    devtool: 'eval-source-map',
     optimization: {
         runtimeChunk: "single",
         splitChunks: {
