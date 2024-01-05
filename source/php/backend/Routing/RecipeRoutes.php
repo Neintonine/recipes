@@ -7,6 +7,7 @@ use Aura\Router\Map;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
 use RecipeManager\ContainerHandler;
+use RecipeManager\Database\Repositories\IngredientRepository;
 use RecipeManager\Database\Repositories\SourceRepository;
 use RecipeManager\Database\Repositories\TagRepository;
 use RecipeManager\Template\TemplateEngine;
@@ -20,11 +21,13 @@ final class RecipeRoutes
     private function createRoute(ServerRequest $request): Response {
         $totalTags = ContainerHandler::Get(TagRepository::class)->getAll();
         $sources = ContainerHandler::Get(SourceRepository::class)->getAll();
+        $ingredients = ContainerHandler::Get(IngredientRepository::class)->getAll();
 
         $templateEngine = ContainerHandler::Get(TemplateEngine::class);
         $renderedTemplate = $templateEngine->render("pages::recipes/create", [
             "tags" => $totalTags,
-            "sources" => $sources
+            "sources" => $sources,
+            'ingredients' => $ingredients
         ]);
 
         $response = new Response();

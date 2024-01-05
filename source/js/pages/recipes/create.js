@@ -10,28 +10,48 @@ require("bootstrap-select");
 document.addEventListener("DOMContentLoaded", () => {
 
     const INGREDIENT_TABLE = document.querySelector("table.js-ingredient-table");
+    const DATA_META_ELEM = document.querySelector('meta[name=js-data]');
+    const INGREDIENTS = JSON.parse(DATA_META_ELEM.dataset.ingredients);
 
     function tpl() {
         return `
 <tr>
-    <td><i class="fa-solid fa-bars"></i></td>
-    <td><input type="number" class="form-control"></td>
-    <td>
-        <select>
-        </select>
+    <td class="align-middle"><i class="fa-solid fa-bars fa-2xl"></i></td>
+    <td class="d-flex flex-row align-middle">
+        <input type="number"
+               class="js-portion-input form-control"
+               style="width: 10rem"
+        >
+        <span class="fs-5 ms-2 pt-1">Unit</span>
     </td>
     <td>
-        <i class="text-danger fa-solid fa-xmark"></i>
+        <select class="js-ingredient-select"
+            data-style="btn-dark border"
+            data-width="100%"
+            data-live-search="true" data-size="10"
+            title="Choose an ingredient..."
+        >
+            <option data-content='<i class="fa-solid fa-plus me-1"></i> Create new ingredient'>Create new ingredient</option>
+        </select>
+    </td>
+    <td class="align-middle">
+        <i class="text-danger fa-solid fa-xmark fa-2xl"></i>
     </td>
 </tr>`;
     }
     document.querySelector(".js-add-ingredient").addEventListener("click", () => {
         const tableBody = INGREDIENT_TABLE.querySelector("tbody");
-        const rowTemplate = tpl();
-        const rowDom = new DOMParser().parseFromString(rowTemplate, "text/html");
-        const element = rowDom.body.querySelector("tr");
+        const template = tpl().replaceAll('\n', '');
+        /**
+         * @var {HTMLTableRowElement}
+         */
+        const trElement = $(template)[0];
 
-        console.log(rowTemplate, rowDom, element);
+        const portions = trElement.querySelector('input.js-portion-input');
+        const select = trElement.querySelector('select.js-ingredient-select');
+        $(select).selectpicker();
+
+        tableBody.appendChild(trElement);
     })
 
     Tags.init("select#tag-input", {

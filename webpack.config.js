@@ -20,7 +20,7 @@ function *walkSync(dir) {
 const entries = {};
 for (const filePath of walkSync(PAGES_FOLDER)) {
     const relativePath = filePath.replace(PAGES_FOLDER + Path.sep, '').replace(/\.[^/.]+$/, "");
-    entries[relativePath] = {
+    entries[relativePath.replace('\\','/')] = {
         import: filePath
     };
 }

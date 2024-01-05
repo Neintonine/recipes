@@ -4,11 +4,17 @@ declare(strict_types=1);
 namespace RecipeManager\Database\Repositories;
 
 use Exception;
+use RecipeManager\Database\Database;
 use RecipeManager\Database\Models\Ingredient;
-use RecipeManager\Database\Models\IngredientType;
+use RecipeManager\Database\Models\IngredientUnit;
 
 final class IngredientRepository extends Repository
 {
+    public function __construct(Database $database, private IngredientUnitRepository $unitRepository)
+    {
+        parent::__construct($database);
+    }
+
     #[\Override] public function get(int $id): ?Ingredient
     {
         $sql = "SELECT 
@@ -61,7 +67,7 @@ FROM ingrediant";
         return new Ingredient(
             $values['id'],
             $values['name'],
-            IngredientType::from($values['type']),
+            $this->unitRepository->get($values['type']),
             $values['type_argument']
         );
     }

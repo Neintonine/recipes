@@ -4,12 +4,19 @@ declare(strict_types=1);
 /**
  * @var Tag[] $tags
  * @var \RecipeManager\Database\Models\Source[] $sources
+ * @var \RecipeManager\Database\Models\Ingredient[] $ingredients
  */
 
 use RecipeManager\Database\Models\Tag;
 
 $this->layout("layout::main", [ "resourceId" => "recipes/create" ]);
 ?>
+
+<?php $this->start("head"); ?>
+<meta name="js-data"
+      data-ingredients='<?= json_encode($ingredients) ?>'
+>
+<?php $this->end(); ?>
 
 <?php $this->start("sidebar"); ?>
 
@@ -43,7 +50,7 @@ $this->layout("layout::main", [ "resourceId" => "recipes/create" ]);
 <div class="mt-3">
     <label for="source-input">Source</label>
     <select class="selectpicker w-100" id="source-input" name="source"
-            data-style="btn-dark" data-live-search="true" data-size="10"
+            data-style="btn-dark border" data-live-search="true" data-size="10"
             data-dropup-auto="false" title="Choose a source..."
     >
         <option data-content='<i class="fa-solid fa-plus me-1"></i> Create new source'>Create new source</option>
@@ -94,8 +101,8 @@ $this->layout("layout::main", [ "resourceId" => "recipes/create" ]);
     <table class="table table-striped js-ingredient-table">
         <colgroup>
             <col style="width:2rem">
-            <col>
-            <col>
+            <col style="width: 50%;">
+            <col style="width: 50%;">
             <col style="width: 2rem">
         </colgroup>
         <thead>
