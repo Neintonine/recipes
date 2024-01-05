@@ -84,14 +84,20 @@ $this->layout("layout::main", [ "resourceId" => "recipes/create" ]);
 <div>
     <label for="" class="form-label ms-2">
         Ingredients
-        <a class="text-reset text-decoration-none"
+        <a class="text-reset text-decoration-none js-add-ingredient"
            style="cursor:pointer;"
         >
             <i class="fa-solid fa-plus me-1"></i>
         </a>
     </label>
 
-    <table class="table table-striped">
+    <table class="table table-striped js-ingredient-table">
+        <colgroup>
+            <col style="width:2rem">
+            <col>
+            <col>
+            <col style="width: 2rem">
+        </colgroup>
         <thead>
             <tr>
                 <th></th>
@@ -100,6 +106,7 @@ $this->layout("layout::main", [ "resourceId" => "recipes/create" ]);
                 <th></th>
             </tr>
         </thead>
+        <tbody></tbody>
     </table>
 </div>
 <hr>
