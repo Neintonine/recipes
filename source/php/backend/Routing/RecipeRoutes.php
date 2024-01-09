@@ -8,6 +8,7 @@ use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
 use RecipeManager\ContainerHandler;
 use RecipeManager\Database\Repositories\IngredientRepository;
+use RecipeManager\Database\Repositories\IngredientUnitRepository;
 use RecipeManager\Database\Repositories\SourceRepository;
 use RecipeManager\Database\Repositories\TagRepository;
 use RecipeManager\Template\TemplateEngine;
@@ -22,12 +23,14 @@ final class RecipeRoutes
         $totalTags = ContainerHandler::Get(TagRepository::class)->getAll();
         $sources = ContainerHandler::Get(SourceRepository::class)->getAll();
         $ingredients = ContainerHandler::Get(IngredientRepository::class)->getAll();
+        $units = ContainerHandler::Get(IngredientUnitRepository::class)->getAll();
 
         $templateEngine = ContainerHandler::Get(TemplateEngine::class);
         $renderedTemplate = $templateEngine->render("pages::recipes/create", [
             "tags" => $totalTags,
             "sources" => $sources,
-            'ingredients' => $ingredients
+            'ingredients' => $ingredients,
+            "ingredientUnits" => $units
         ]);
 
         $response = new Response();

@@ -8,8 +8,8 @@ final readonly class Ingredient
     public function __construct(
         public int            $id,
         public string         $name,
-        public IngredientUnit $type,
-        public ?string        $type_argument
+        public IngredientUnit $unit,
+        public ?string        $unit_argument
     )
     {
     }

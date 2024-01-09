@@ -20,6 +20,10 @@ final class IngredientUnitRepository
         $units = $this->getUnits();
         return $units[$tag];
     }
+    public function getAll(): array {
+        $units = $this->getUnits();
+        return array_values($units);
+    }
 
     private function getUnits(): array {
         if ($this->units !== null) {

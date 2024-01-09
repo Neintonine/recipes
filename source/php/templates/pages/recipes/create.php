@@ -117,3 +117,28 @@ $this->layout("layout::main", [ "resourceId" => "recipes/create" ]);
     </table>
 </div>
 <hr>
+
+<div class="modal" id="ingredient-create-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Ingredient</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-floating">
+                    <input type="text" class="form-control">
+                    <label for="">Name</label>
+                </div>
+
+                <select id="ingredient-unit-select">
+
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
